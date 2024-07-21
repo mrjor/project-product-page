@@ -11,16 +11,16 @@ interface Product {
 };
   
 interface ProductsState {
-  products: Product[];
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  error: string | null;
+    collection: Product[];
+    status: 'idle' | 'loading' | 'succeeded' | 'failed';
+    error: string | null;
 };
 
 // Initial state with type
 const initialState: ProductsState = {
-  products: [],
-  status: 'idle',
-  error: null
+    collection: [],
+    status: 'idle',
+    error: null
 };
 
 // Async thunk with return type
@@ -44,7 +44,7 @@ const productsSlice = createSlice({
       })
       .addCase(fetchProducts.fulfilled, (state, action: PayloadAction<Product[]>) => {
         state.status = 'succeeded';
-        state.products = action.payload;
+        state.collection = action.payload;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = 'failed';

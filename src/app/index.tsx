@@ -1,9 +1,9 @@
 import '@/css/index.css'
 
-import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import { Provider } from 'react-redux'
-import Axios from "axios";
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import Axios from 'axios';
 import { store } from '@/store';
 
 import Products from './pages/products'
@@ -13,11 +13,11 @@ Axios.defaults.baseURL = 'http://localhost:3000';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Products />,
   },
   {
-    path: "/product/:id",
+    path: '/product/:id',
     element: <Product />,
   }
 ]);
