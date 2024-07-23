@@ -215,18 +215,6 @@
         "suctionPower": "2000Pa",
         "connectivity": "Wi-Fi"
       }
-    },
-    {
-      "id": 20,
-      "name": "Espresso Machine",
-      "brand": "CoffeePro",
-      "category": "Kitchen Appliances",
-      "image": "https://picsum.photos/300/300.jpg",
-      "specifications": {
-        "capacity": "2 cups",
-        "pressure": "15 bar",
-        "milkFrother": "Yes"
-      }
     }
   ],
   "wishlists": [

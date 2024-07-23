@@ -6,6 +6,7 @@ import { Product } from "@/store/types";
 // Define the initial state for the products slice
 export interface ProductsState {
     collection: Product[];
+    selectedProduct: Product,
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
     error: string | null;
 };
@@ -13,6 +14,14 @@ export interface ProductsState {
 // Set the initial state for the products slice
 const initialState: ProductsState = {
     collection: [],
+    selectedProduct: {
+        id: 0,
+        name: '',
+        brand:'',
+        category: '',
+        image: '',
+        specifications: {}
+    },
     status: 'idle',
     error: null
 };
@@ -29,8 +38,8 @@ export const fetchProducts = createAsyncThunk<Product[], object>(
 // Thunk for fetching a product by its ID
 export const fetchProductById = createAsyncThunk<Product, number>(
   'products/fetchProduct', 
-  async (id: number) => {
-    const response = await Axios.get('/products/' + id);
+  async (productId: number) => {
+    const response = await Axios.get(`/products/${productId}`);
     return response.data as Product;
   }
 );
@@ -101,6 +110,12 @@ const setProductsCollection = (state: ProductsState, action: PayloadAction<Produ
   state.collection = action.payload;
 }
 
+const setSelectedProduct = (state: ProductsState, action: PayloadAction<Product>) => {
+  state.status = 'succeeded';
+  state.selectedProduct = action.payload;
+}
+
+
 // Create slice with typed state and actions
 const productsSlice = createSlice({
   name: 'products',
@@ -112,6 +127,11 @@ const productsSlice = createSlice({
       .addCase(fetchProducts.fulfilled, setProductsCollection)
       .addCase(fetchProducts.rejected, (state) => {
         setRejectedStateWithMessage(state, 'Failed to fetch products')
+      })
+      .addCase(fetchProductById.pending, setLoadingState)
+      .addCase(fetchProductById.fulfilled, setSelectedProduct)
+      .addCase(fetchProductById.rejected, (state) => {
+        setRejectedStateWithMessage(state, 'Failed to fetch product')
       })
       .addCase(updateProduct.pending, setLoadingState)
       .addCase(updateProduct.fulfilled, updateOrCreateProductInCollection)

@@ -13,29 +13,59 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
+// Array of pages to be displayed in the navigation menu
 const pages = [
   {
-    name : 'Products',
-    path : '/'
+    name: 'Products',
+    path: '/'
   },
   {
-    name : 'Wishlists',
-    path : '/wishlists'
+    name: 'Wishlists',
+    path: '/wishlists'
   }
 ];
 
+/**
+ * The `NavBar` component renders a responsive navigation bar using Material-UI components.
+ * 
+ * The navigation bar displays different menu items depending on the screen size:
+ * - For larger screens, it shows a horizontal list of navigation buttons.
+ * - For smaller screens, it shows a menu icon that opens a dropdown menu with navigation options.
+ * 
+ * It uses React hooks for managing state and navigation:
+ * - `useState` to handle the open/closed state of the mobile menu.
+ * - `useNavigate` from `react-router-dom` to handle client-side navigation.
+ * 
+ * @returns {JSX.Element} The rendered `NavBar` component.
+ */
 function NavBar() {
-  const navigate = useNavigate();
+  // Hook to manage the open/closed state of the mobile menu
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  
+  // Hook to programmatically navigate to different routes
+  const navigate = useNavigate();
 
+  /**
+   * Handles opening the mobile navigation menu.
+   * 
+   * @param {MouseEvent<HTMLElement>} event - The event object from the click event.
+   */
   const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
 
+  /**
+   * Handles clicking a menu item and navigates to the corresponding path.
+   * 
+   * @param {MouseEvent<HTMLElement>} event - The event object from the click event.
+   */
   const handleOnClickNavMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
 
+  /**
+   * Closes the mobile navigation menu.
+   */
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
@@ -44,7 +74,10 @@ function NavBar() {
     <AppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          {/* App logo/icon for larger screens */}
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          
+          {/* App title for larger screens */}
           <Typography
             variant="h6"
             noWrap
@@ -63,6 +96,7 @@ function NavBar() {
             APP
           </Typography>
 
+          {/* Mobile menu icon and dropdown menu */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -100,7 +134,11 @@ function NavBar() {
               ))}
             </Menu>
           </Box>
+
+          {/* App logo/icon for smaller screens */}
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          
+          {/* App title for smaller screens */}
           <Typography
             variant="h5"
             noWrap
@@ -119,6 +157,8 @@ function NavBar() {
           >
             APP
           </Typography>
+
+          {/* Navigation buttons for larger screens */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
@@ -139,4 +179,5 @@ function NavBar() {
     </AppBar>
   );
 }
+
 export default NavBar;
