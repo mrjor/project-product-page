@@ -22,15 +22,15 @@ To set up this project locally, follow these steps:
 
 2. **Install NPM**:
    ```bash
-   npm install
+    npm install
 
 3. **Run dev Server**:
    ```bash
-  npm run dev
+    npm run dev
 
 4. **Open in browser**:
    ```bash
-  Use url shown in your terminal : example http://127.0.0.1:5173/
+    Use url shown in your terminal : example http://127.0.0.1:5173/
 
 ## The current journey 
 
